@@ -17,6 +17,7 @@ export default {
   created () {},
   mounted () {
     this.init()
+    this.render()
   },
   watch: {},
   methods: {
@@ -34,7 +35,7 @@ export default {
 
       // 添加场景
       const geometry = new Three.BoxGeometry(0.2, 0.2, 0.2) // 定义长宽高
-      const material = new Three.MeshBasicMaterial({ color: 0xffffff })
+      const material = new Three.MeshBasicMaterial({ coolor: 0x00ff00 })
 
       this.mesh = new Three.Mesh(geometry, material)
       this.scene.add(this.mesh)
@@ -44,8 +45,13 @@ export default {
       this.renderer.setClearColor(0x000000)
       this.renderer.setSize(container.clientWidth, container.clientHeight)
       container.appendChild(this.renderer.domElement)
+    },
+    render () {
+      requestAnimationFrame(this.render)
 
-      // 渲染场景
+      this.mesh.rotation.x += 0.1
+      this.mesh.rotation.y += 0.1
+      this.mesh.rotation.z += 0.1
       this.renderer.render(this.scene, this.camera)
     }
   },
