@@ -35,10 +35,14 @@ export default {
 
       // 添加场景
       const geometry = new Three.BoxGeometry(0.2, 0.2, 0.2) // 定义长宽高
-      const material = new Three.MeshBasicMaterial({ coolor: 0x00ff00 })
+      const material = new Three.MeshNormalMaterial()
 
       this.mesh = new Three.Mesh(geometry, material)
       this.scene.add(this.mesh)
+
+      // 添加网格线
+      const helper = new Three.GridHelper(1000, 50, 0x0000ff, 0x808080)
+      this.scene.add(helper)
 
       // 渲染器设置
       this.renderer = new Three.WebGLRenderer({ antialias: true })
@@ -49,9 +53,9 @@ export default {
     render () {
       requestAnimationFrame(this.render)
 
-      this.mesh.rotation.x += 0.1
-      this.mesh.rotation.y += 0.1
-      this.mesh.rotation.z += 0.1
+      this.mesh.rotation.x += 0.01
+      this.mesh.rotation.y += 0.01
+      this.mesh.rotation.z += 0.01
       this.renderer.render(this.scene, this.camera)
     }
   },
