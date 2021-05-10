@@ -21,6 +21,7 @@ export default {
   watch: {},
   methods: {
     init: function () {
+      const container = document.getElementById('demo')
       /**
        * 创建三要素
        * 场景scene、相机camera、渲染器renderer
@@ -28,14 +29,21 @@ export default {
       this.scene = new Three.Scene() // 定义场景
 
       // 相机设置
-      this.camera = new Three.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000)
+      this.camera = new Three.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.01, 10)
       this.camera.position.z = 1
+
+      // 添加场景
+      const geometry = new Three.BoxGeometry(0.2, 0.2, 0.2) // 定义长宽高
+      const material = new Three.MeshBasicMaterial({ color: 0xffffff })
+
+      this.mesh = new Three.Mesh(geometry, material)
+      this.scene.add(this.mesh)
 
       // 渲染器设置
       this.renderer = new Three.WebGLRenderer({ antialias: true })
       this.renderer.setClearColor(0x000000)
-      this.renderer.setSize(window.innerWidth, window.innerHeight)
-      document.body.appendChild(this.renderer.domElement)
+      this.renderer.setSize(container.clientWidth, container.clientHeight)
+      container.appendChild(this.renderer.domElement)
 
       // 渲染场景
       this.renderer.render(this.scene, this.camera)
@@ -47,4 +55,7 @@ export default {
 </script>
 
 <style scoped lang="less">
+#demo {
+  height: 400px;
+}
 </style>
