@@ -35,14 +35,15 @@ export default {
     },
     // 相机设置
     initCamera () {
-      this.camera = new Three.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 10)
+      const container = document.getElementById('demo')
+      this.camera = new Three.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.01, 10)
       this.camera.position.z = 1
     },
     // 场景设置
     initScene () {
       this.scene = new Three.Scene()
     },
-    // 添加六面体 
+    // 添加六面体
     initGeometry () {
       const geometry = new Three.BoxGeometry(0.2, 0.2, 0.2) // 定义长宽高
       const material = new Three.MeshNormalMaterial()
